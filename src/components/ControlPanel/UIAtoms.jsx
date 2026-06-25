@@ -36,7 +36,7 @@ export function SliderRow({ label, value, min, max, step = 1, unit = '', onChang
 export function ColorRow({ label, value, onChange }) {
   return (
     <div className="flex items-center gap-3 mb-2.5">
-      <span className="text-xs w-16 shrink-0 text-right"
+      <span className="text-xs w-10 shrink-0 text-right"
         style={{ color: 'var(--color-muted-strong)' }}>
         {label}
       </span>
