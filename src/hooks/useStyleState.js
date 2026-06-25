@@ -37,6 +37,7 @@ const DEFAULT_STATE = {
   // 텍스트 외곽선 (stroke)
   strokeWidth: 0,
   strokeColor: '#000000',
+  strokePosition: 'outside', // 'outside' | 'center' | 'inside'
 
   // 불투명도
   opacity: 100,
@@ -49,7 +50,7 @@ const DEFAULT_STATE = {
   gradientAngle: 135,
 
   // 내보내기
-  exportPreset: 1, // PRESET_RESOLUTIONS index
+  exportPreset: 1,
   customWidth: 1920,
   customHeight: 1080,
   useCustomSize: false,

@@ -1,5 +1,11 @@
-// Skew, Shadow, 테두리, 불투명도 스타일 설정 섹션
+// Skew, Shadow, 텍스트 외곽선, 불투명도 스타일 설정 섹션
 import { Section, SliderRow, ColorRow, Toggle } from './UIAtoms'
+
+const STROKE_POSITIONS = [
+  { value: 'outside', label: '바깥' },
+  { value: 'center',  label: '중앙' },
+  { value: 'inside',  label: '안쪽' },
+]
 
 export function StyleSection({ state, update }) {
   return (
@@ -77,11 +83,32 @@ export function StyleSection({ state, update }) {
           onChange={v => update('strokeWidth', v)}
         />
         {state.strokeWidth > 0 && (
-          <ColorRow
-            label="색상"
-            value={state.strokeColor}
-            onChange={v => update('strokeColor', v)}
-          />
+          <>
+            <ColorRow
+              label="색상"
+              value={state.strokeColor}
+              onChange={v => update('strokeColor', v)}
+            />
+            {/* 위치 선택 */}
+            <div className="mt-2">
+              <p className="text-xs text-white/50 mb-2">위치</p>
+              <div className="flex gap-1 bg-white/5 rounded-xl p-1">
+                {STROKE_POSITIONS.map(pos => (
+                  <button
+                    key={pos.value}
+                    onClick={() => update('strokePosition', pos.value)}
+                    className={`flex-1 py-1.5 text-xs rounded-lg font-medium transition-colors ${
+                      state.strokePosition === pos.value
+                        ? 'bg-indigo-500 text-white'
+                        : 'text-white/50 hover:text-white/80'
+                    }`}
+                  >
+                    {pos.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </>
         )}
       </Section>
 
