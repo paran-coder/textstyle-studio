@@ -11,7 +11,7 @@ import { useToast } from './components/Toast'
 import { exportToPng } from './utils/exportPng'
 
 export default function App() {
-  const { state, update, addUploadedFont, getExportSize } = useStyleState()
+  const { state, update, addUploadedFont, getExportSize, reset } = useStyleState()
   const { showToast, ToastRenderer } = useToast()
   const previewRef = useRef(null)
   const [exporting, setExporting] = useState(false)
@@ -52,14 +52,35 @@ export default function App() {
       >
         {/* 헤더 */}
         <div className="px-4 py-3.5" style={{ borderBottom: '1px solid var(--color-hairline)' }}>
-          <div className="flex items-center gap-2">
-            <div className="w-5 h-5 rounded-sm flex items-center justify-center shrink-0"
-              style={{ background: 'var(--color-primary)' }}>
-              <span style={{ color: 'var(--color-ink)', fontSize: 10, fontWeight: 700, lineHeight: 1 }}>T</span>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <div className="w-5 h-5 rounded-sm flex items-center justify-center shrink-0"
+                style={{ background: 'var(--color-primary)' }}>
+                <span style={{ color: 'var(--color-ink)', fontSize: 10, fontWeight: 700, lineHeight: 1 }}>T</span>
+              </div>
+              <h1 className="text-sm font-semibold" style={{ color: 'var(--color-on-dark)' }}>
+                TextStyle Studio
+              </h1>
             </div>
-            <h1 className="text-sm font-semibold" style={{ color: 'var(--color-on-dark)' }}>
-              TextStyle Studio
-            </h1>
+            <button
+              onClick={reset}
+              className="text-xs px-2.5 py-1 rounded transition-colors"
+              style={{
+                color: 'var(--color-muted)',
+                border: '1px solid var(--color-hairline)',
+                background: 'transparent',
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.color = 'var(--color-trading-down)'
+                e.currentTarget.style.borderColor = 'var(--color-trading-down)'
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.color = 'var(--color-muted)'
+                e.currentTarget.style.borderColor = 'var(--color-hairline)'
+              }}
+            >
+              초기화
+            </button>
           </div>
           <p className="text-xs mt-1" style={{ color: 'var(--color-muted)' }}>
             텍스트 꾸미고 PNG로 저장

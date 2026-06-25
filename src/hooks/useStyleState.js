@@ -95,5 +95,7 @@ export function useStyleState() {
     return PRESET_RESOLUTIONS[state.exportPreset]
   }
 
-  return { state, update, addUploadedFont, getExportSize }
+  const reset = () => setState(DEFAULT_STATE)
+
+  return { state, update, addUploadedFont, getExportSize, reset }
 }
