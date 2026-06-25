@@ -1,6 +1,7 @@
 // 스타일이 실시간으로 반영되는 미리보기 영역 컴포넌트
 import { forwardRef } from 'react'
 import { getStrokeStyle } from '../../utils/strokeStyle'
+import { getLongShadow } from '../../utils/longShadow'
 
 function getBackground(state) {
   if (state.bgType === 'transparent') return 'transparent'
@@ -13,10 +14,20 @@ function getBackground(state) {
 function buildTextShadow(state, strokeShadows) {
   const parts = []
 
-  // 외곽선 outside shadow 먼저
+  // 1. 롱 섀도우 (가장 아래 레이어)
+  if (state.longShadowEnabled) {
+    parts.push(getLongShadow(
+      state.longShadowLength,
+      state.longShadowAngle,
+      state.longShadowColor,
+      state.longShadowFade,
+    ))
+  }
+
+  // 2. 외곽선 outside shadows
   if (strokeShadows) parts.push(...strokeShadows)
 
-  // 사용자 그림자
+  // 3. 일반 그림자 (가장 위 레이어)
   if (state.shadowEnabled) {
     parts.push(
       `${state.shadowOffsetX}px ${state.shadowOffsetY}px ${state.shadowBlur}px ${state.shadowColor}`

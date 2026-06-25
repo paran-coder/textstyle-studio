@@ -27,23 +27,30 @@ const DEFAULT_STATE = {
   skewX: 0,
   skewY: 0,
 
-  // 그림자
+  // 일반 그림자
   shadowOffsetX: 4,
   shadowOffsetY: 4,
   shadowBlur: 8,
   shadowColor: '#00000088',
   shadowEnabled: false,
 
+  // 롱 섀도우
+  longShadowEnabled: false,
+  longShadowLength: 80,   // 그림자 길이 (px 단위 스텝 수)
+  longShadowAngle: 135,   // 방향 각도 (deg, 0=오른쪽, 90=아래)
+  longShadowColor: '#00000066',
+  longShadowFade: true,   // 끝으로 갈수록 투명해지는 효과
+
   // 텍스트 외곽선 (stroke)
   strokeWidth: 0,
   strokeColor: '#000000',
-  strokePosition: 'outside', // 'outside' | 'center' | 'inside'
+  strokePosition: 'outside',
 
   // 불투명도
   opacity: 100,
 
   // 배경
-  bgType: 'solid', // 'solid' | 'transparent' | 'gradient'
+  bgType: 'solid',
   bgColor: '#6366f1',
   gradientStart: '#6366f1',
   gradientEnd: '#a855f7',

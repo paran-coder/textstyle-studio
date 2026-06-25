@@ -1,4 +1,4 @@
-// Skew, Shadow, 텍스트 외곽선, 불투명도 스타일 설정 섹션
+// Skew, Shadow, 롱 섀도우, 텍스트 외곽선, 불투명도 스타일 설정 섹션
 import { Section, SliderRow, ColorRow, Toggle } from './UIAtoms'
 
 const STROKE_POSITIONS = [
@@ -30,7 +30,7 @@ export function StyleSection({ state, update }) {
         />
       </Section>
 
-      {/* Shadow */}
+      {/* 일반 그림자 */}
       <Section title="그림자 (Shadow)">
         <Toggle
           label="그림자 사용"
@@ -72,6 +72,45 @@ export function StyleSection({ state, update }) {
         )}
       </Section>
 
+      {/* 롱 섀도우 */}
+      <Section title="긴 그림자 (Long Shadow)">
+        <Toggle
+          label="긴 그림자 사용"
+          checked={state.longShadowEnabled}
+          onChange={v => update('longShadowEnabled', v)}
+        />
+        {state.longShadowEnabled && (
+          <>
+            <SliderRow
+              label="길이"
+              value={state.longShadowLength}
+              min={10}
+              max={300}
+              unit="px"
+              onChange={v => update('longShadowLength', v)}
+            />
+            <SliderRow
+              label="각도"
+              value={state.longShadowAngle}
+              min={0}
+              max={359}
+              unit="°"
+              onChange={v => update('longShadowAngle', v)}
+            />
+            <ColorRow
+              label="색상"
+              value={state.longShadowColor}
+              onChange={v => update('longShadowColor', v)}
+            />
+            <Toggle
+              label="페이드 아웃"
+              checked={state.longShadowFade}
+              onChange={v => update('longShadowFade', v)}
+            />
+          </>
+        )}
+      </Section>
+
       {/* 텍스트 외곽선 */}
       <Section title="텍스트 외곽선">
         <SliderRow
@@ -89,7 +128,6 @@ export function StyleSection({ state, update }) {
               value={state.strokeColor}
               onChange={v => update('strokeColor', v)}
             />
-            {/* 위치 선택 */}
             <div className="mt-2">
               <p className="text-xs text-white/50 mb-2">위치</p>
               <div className="flex gap-1 bg-white/5 rounded-xl p-1">
