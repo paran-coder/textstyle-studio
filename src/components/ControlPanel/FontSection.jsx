@@ -65,10 +65,11 @@ export function FontSection({ state, update, addUploadedFont, showToast }) {
           color: 'var(--color-muted)',
         }}
       >
-        폰트 파일 드래그 또는<br />클릭 (TTF · OTF · WOFF)
-        <p className="mt-1.5 text-xs" style={{ color: 'var(--color-muted)', fontSize: 10 }}>
-          업로드한 폰트 저작권은 책임지지 않습니다.
-        </p>
+        <span>폰트 파일 드래그 또는 클릭</span><br />
+        <span>(TTF · OTF · WOFF)</span><br />
+        <span className="mt-1 block" style={{ fontSize: 10, color: 'var(--color-muted)' }}>
+          첨부한 폰트 저작권은 책임지지 않습니다.
+        </span>
         <input
           ref={fileInputRef}
           type="file"
