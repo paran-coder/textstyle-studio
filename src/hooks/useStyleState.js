@@ -34,10 +34,9 @@ const DEFAULT_STATE = {
   shadowColor: '#00000088',
   shadowEnabled: false,
 
-  // 테두리
-  borderWidth: 0,
-  borderColor: '#ffffff',
-  borderRadius: 8,
+  // 텍스트 외곽선 (stroke)
+  strokeWidth: 0,
+  strokeColor: '#000000',
 
   // 불투명도
   opacity: 100,

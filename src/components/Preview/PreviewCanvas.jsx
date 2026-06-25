@@ -45,12 +45,10 @@ export const PreviewCanvas = forwardRef(function PreviewCanvas({ state }, ref) {
               color: state.textColor,
               transform: `skewX(${state.skewX}deg) skewY(${state.skewY}deg)`,
               textShadow,
-              border: state.borderWidth > 0
-                ? `${state.borderWidth}px solid ${state.borderColor}`
-                : 'none',
-              borderRadius: `${state.borderRadius}px`,
+              WebkitTextStroke: state.strokeWidth > 0
+                ? `${state.strokeWidth}px ${state.strokeColor}`
+                : '0px transparent',
               opacity: state.opacity / 100,
-              padding: state.borderWidth > 0 ? '0.5em 0.75em' : '0',
               whiteSpace: 'pre-wrap',
               textAlign: 'center',
               lineHeight: 1.3,

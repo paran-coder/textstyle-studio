@@ -66,31 +66,23 @@ export function StyleSection({ state, update }) {
         )}
       </Section>
 
-      {/* 테두리 */}
-      <Section title="테두리">
+      {/* 텍스트 외곽선 */}
+      <Section title="텍스트 외곽선">
         <SliderRow
           label="두께"
-          value={state.borderWidth}
+          value={state.strokeWidth}
           min={0}
           max={20}
           unit="px"
-          onChange={v => update('borderWidth', v)}
+          onChange={v => update('strokeWidth', v)}
         />
-        {state.borderWidth > 0 && (
+        {state.strokeWidth > 0 && (
           <ColorRow
             label="색상"
-            value={state.borderColor}
-            onChange={v => update('borderColor', v)}
+            value={state.strokeColor}
+            onChange={v => update('strokeColor', v)}
           />
         )}
-        <SliderRow
-          label="모서리"
-          value={state.borderRadius}
-          min={0}
-          max={80}
-          unit="px"
-          onChange={v => update('borderRadius', v)}
-        />
       </Section>
 
       {/* 불투명도 */}
