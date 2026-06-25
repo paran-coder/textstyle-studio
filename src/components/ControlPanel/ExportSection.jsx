@@ -16,7 +16,7 @@ export function ExportSection({ state, update, onExport, exporting }) {
               className="px-2 py-2 text-xs rounded transition-colors text-left"
               style={{
                 background: active ? 'rgba(252,213,53,0.1)' : 'var(--color-surface-elevated)',
-                color: active ? 'var(--color-primary)' : 'var(--color-muted-strong)',
+                color: active ? 'var(--color-primary)' : 'var(--color-on-dark)',
                 border: `1px solid ${active ? 'var(--color-primary)' : 'var(--color-hairline)'}`,
                 fontWeight: active ? 600 : 400,
               }}
@@ -44,7 +44,7 @@ export function ExportSection({ state, update, onExport, exporting }) {
               </svg>
             )}
           </div>
-          <span className="text-xs" style={{ color: 'var(--color-muted)' }}>직접 입력</span>
+          <span className="text-xs" style={{ color: 'var(--color-muted-strong)' }}>직접 입력</span>
         </label>
         {state.useCustomSize && (
           <div className="flex items-center gap-2">

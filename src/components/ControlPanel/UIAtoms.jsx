@@ -1,4 +1,9 @@
 // Binance 디자인 시스템 기반 컨트롤 패널 UI 원자 컴포넌트들
+// 색상 기준:
+//   라벨 텍스트  → --color-muted-strong (#929aa5) — muted(#707a8a)보다 밝아 가독성 확보
+//   섹션 타이틀  → --color-on-dark (#eaecef) 60% — 계층 구분
+//   값 표시      → --color-primary (#fcd535) — Binance yellow 강조
+//   비활성 버튼  → --color-muted-strong 텍스트 + hairline 테두리
 
 export function Section({ title, children }) {
   return (
@@ -6,7 +11,7 @@ export function Section({ title, children }) {
       style={{ borderColor: 'var(--color-hairline)' }}>
       {title && (
         <p className="text-xs font-semibold uppercase tracking-widest mb-3"
-          style={{ color: 'var(--color-muted)', letterSpacing: '0.08em' }}>
+          style={{ color: 'var(--color-muted-strong)', letterSpacing: '0.08em' }}>
           {title}
         </p>
       )}
@@ -19,18 +24,14 @@ export function SliderRow({ label, value, min, max, step = 1, unit = '', onChang
   return (
     <div className="mb-3">
       <div className="flex justify-between mb-1.5">
-        <span className="text-xs" style={{ color: 'var(--color-muted)' }}>{label}</span>
+        <span className="text-xs" style={{ color: 'var(--color-muted-strong)' }}>{label}</span>
         <span className="text-xs font-medium tabular-nums"
-          style={{ color: 'var(--color-primary)', fontVariantNumeric: 'tabular-nums' }}>
+          style={{ color: 'var(--color-primary)' }}>
           {value}{unit}
         </span>
       </div>
       <input
-        type="range"
-        min={min}
-        max={max}
-        step={step}
-        value={value}
+        type="range" min={min} max={max} step={step} value={value}
         onChange={e => onChange(Number(e.target.value))}
       />
     </div>
@@ -40,7 +41,8 @@ export function SliderRow({ label, value, min, max, step = 1, unit = '', onChang
 export function ColorRow({ label, value, onChange }) {
   return (
     <div className="flex items-center gap-3 mb-2.5">
-      <span className="text-xs w-16 shrink-0 text-right" style={{ color: 'var(--color-muted)' }}>
+      <span className="text-xs w-16 shrink-0 text-right"
+        style={{ color: 'var(--color-muted-strong)' }}>
         {label}
       </span>
       <div className="flex items-center gap-2 flex-1">
@@ -75,14 +77,12 @@ export function ColorRow({ label, value, onChange }) {
 export function Toggle({ label, checked, onChange }) {
   return (
     <div className="flex items-center justify-between mb-3">
-      <span className="text-xs" style={{ color: 'var(--color-muted)' }}>{label}</span>
+      <span className="text-xs" style={{ color: 'var(--color-muted-strong)' }}>{label}</span>
       <button
         onClick={() => onChange(!checked)}
         className="relative shrink-0 transition-colors"
         style={{
-          width: 36,
-          height: 20,
-          borderRadius: 10,
+          width: 36, height: 20, borderRadius: 10,
           background: checked ? 'var(--color-primary)' : 'var(--color-surface-elevated)',
           border: `1px solid ${checked ? 'var(--color-primary)' : 'var(--color-hairline)'}`,
         }}
@@ -90,12 +90,8 @@ export function Toggle({ label, checked, onChange }) {
         <span
           className="absolute transition-transform"
           style={{
-            top: 2,
-            left: 2,
-            width: 14,
-            height: 14,
-            borderRadius: '50%',
-            background: checked ? 'var(--color-ink)' : 'var(--color-muted)',
+            top: 2, left: 2, width: 14, height: 14, borderRadius: '50%',
+            background: checked ? 'var(--color-ink)' : 'var(--color-muted-strong)',
             transform: checked ? 'translateX(16px)' : 'translateX(0)',
           }}
         />
@@ -107,10 +103,7 @@ export function Toggle({ label, checked, onChange }) {
 export function NumberInput({ value, min = 1, max = 9999, onChange, className = '' }) {
   return (
     <input
-      type="number"
-      value={value}
-      min={min}
-      max={max}
+      type="number" value={value} min={min} max={max}
       onChange={e => onChange(Number(e.target.value))}
       className={`px-3 py-1.5 text-sm rounded focus:outline-none ${className}`}
       style={{
@@ -135,7 +128,7 @@ export function TabGroup({ options, value, onChange }) {
           className="flex-1 py-1.5 text-xs font-semibold transition-colors"
           style={{
             background: value === opt.value ? 'var(--color-primary)' : 'transparent',
-            color: value === opt.value ? 'var(--color-ink)' : 'var(--color-muted)',
+            color: value === opt.value ? 'var(--color-ink)' : 'var(--color-on-dark)',
           }}
         >
           {opt.label}
@@ -145,14 +138,15 @@ export function TabGroup({ options, value, onChange }) {
   )
 }
 
-export function PresetButton({ label, active, onClick }) {
+// 범용 소형 버튼 (프리셋 등)
+export function ChipButton({ label, active, onClick }) {
   return (
     <button
       onClick={onClick}
-      className="px-3 py-1.5 text-xs rounded transition-colors text-left w-full"
+      className="py-1.5 text-xs rounded transition-colors"
       style={{
         background: active ? 'var(--color-primary)' : 'var(--color-surface-elevated)',
-        color: active ? 'var(--color-ink)' : 'var(--color-muted-strong)',
+        color: active ? 'var(--color-ink)' : 'var(--color-on-dark)',
         fontWeight: active ? 600 : 400,
         border: `1px solid ${active ? 'var(--color-primary)' : 'var(--color-hairline)'}`,
       }}

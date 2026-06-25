@@ -1,5 +1,5 @@
 // Skew, Shadow, 롱 섀도우, 3D 입체, 텍스트 외곽선, 불투명도 스타일 설정 섹션
-import { Section, SliderRow, ColorRow, Toggle } from './UIAtoms'
+import { Section, SliderRow, ColorRow, Toggle, ChipButton } from './UIAtoms'
 
 const STROKE_POSITIONS = [
   { value: 'outside', label: '바깥' },
@@ -70,23 +70,24 @@ export function StyleSection({ state, update }) {
               onChange={v => update('threeDHighlight', v)} />
             {/* 빛 방향 프리셋 */}
             <div className="mt-2">
-              <p className="text-xs text-white/50 mb-2">빛 방향 프리셋</p>
+              <p className="text-xs mb-2" style={{ color: 'var(--color-muted-strong)' }}>
+                빛 방향 프리셋
+              </p>
               <div className="grid grid-cols-3 gap-1">
                 {[
-                  { label: '↗ 왼쪽아래', angle: 135 },
-                  { label: '↓ 아래', angle: 90 },
-                  { label: '↖ 오른쪽아래', angle: 45 },
+                  { label: '↖ 왼쪽위',   angle: 315 },
+                  { label: '↑ 위',        angle: 270 },
+                  { label: '↗ 오른쪽위', angle: 225 },
+                  { label: '↙ 왼쪽아래', angle: 135 },
+                  { label: '↓ 아래',      angle: 90  },
+                  { label: '↘ 오른쪽아래', angle: 45 },
                 ].map(p => (
-                  <button key={p.angle}
+                  <ChipButton
+                    key={p.angle}
+                    label={p.label}
+                    active={state.threeDAngle === p.angle}
                     onClick={() => update('threeDAngle', p.angle)}
-                    className={`py-1.5 text-xs rounded-lg transition-colors ${
-                      state.threeDAngle === p.angle
-                        ? 'bg-indigo-500 text-white'
-                        : 'bg-white/5 text-white/50 hover:bg-white/10'
-                    }`}
-                  >
-                    {p.label}
-                  </button>
+                  />
                 ))}
               </div>
             </div>

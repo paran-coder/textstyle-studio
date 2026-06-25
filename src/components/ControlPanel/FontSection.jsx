@@ -78,7 +78,7 @@ export function FontSection({ state, update, addUploadedFont, showToast }) {
       {/* 굵기 */}
       <div className="mb-3">
         <div className="flex justify-between mb-1.5">
-          <span className="text-xs" style={{ color: 'var(--color-muted)' }}>굵기</span>
+          <span className="text-xs" style={{ color: 'var(--color-muted-strong)' }}>굵기</span>
           <span className="text-xs font-medium" style={{ color: 'var(--color-primary)' }}>
             {state.fontWeight}
           </span>
@@ -91,7 +91,7 @@ export function FontSection({ state, update, addUploadedFont, showToast }) {
               className="flex-1 py-1 text-xs rounded transition-colors"
               style={{
                 background: state.fontWeight === w ? 'var(--color-primary)' : 'var(--color-surface-elevated)',
-                color: state.fontWeight === w ? 'var(--color-ink)' : 'var(--color-muted)',
+                color: state.fontWeight === w ? 'var(--color-ink)' : 'var(--color-on-dark)',
                 fontWeight: w,
                 border: `1px solid ${state.fontWeight === w ? 'var(--color-primary)' : 'var(--color-hairline)'}`,
               }}
