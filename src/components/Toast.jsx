@@ -1,4 +1,4 @@
-// Binance 스타일 토스트 알림 컴포넌트
+// Binance Light 테마 토스트 알림 컴포넌트
 import { useEffect, useState } from 'react'
 
 export function Toast({ message, type = 'error', onClose }) {
@@ -16,12 +16,13 @@ export function Toast({ message, type = 'error', onClose }) {
 
   return (
     <div
-      className="fixed top-4 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 px-4 py-3 rounded text-sm shadow-xl"
+      className="fixed top-4 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 px-4 py-3 rounded text-sm shadow-lg"
       style={{
-        background: 'var(--color-surface-elevated)',
+        background: 'var(--color-canvas)',
         border: `1px solid ${borderColor}`,
-        color: 'var(--color-on-dark)',
+        color: 'var(--color-body)',
         minWidth: 240,
+        boxShadow: '0 4px 16px rgba(0,0,0,0.12)',
       }}
     >
       <span style={{ color: iconColor, fontSize: 16 }}>

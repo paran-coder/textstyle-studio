@@ -1,4 +1,4 @@
-// 텍스트 스타일러 앱의 루트 레이아웃 — Binance 디자인 시스템 적용
+// 텍스트 스타일러 앱 루트 레이아웃 — Binance Light 테마
 import { useRef, useState } from 'react'
 import { useStyleState, PRESET_RESOLUTIONS } from './hooks/useStyleState'
 import { TextInput } from './components/ControlPanel/TextInput'
@@ -20,12 +20,10 @@ export default function App() {
     if (!state.text.trim()) { showToast('텍스트를 입력해 주세요.'); return }
     const size = getExportSize()
     if (size.width < 1 || size.height < 1) { showToast('해상도는 1px 이상이어야 합니다.'); return }
-
     setExporting(true)
     try {
       await exportToPng(previewRef.current, {
-        width: size.width,
-        height: size.height,
+        width: size.width, height: size.height,
         transparent: state.bgType === 'transparent',
       }, state)
       showToast('PNG가 저장되었습니다.', 'success')
@@ -36,19 +34,23 @@ export default function App() {
     }
   }
 
-  const preset = PRESET_RESOLUTIONS[state.exportPreset]
+  const preset   = PRESET_RESOLUTIONS[state.exportPreset]
   const resLabel = state.useCustomSize
     ? `${state.customWidth} × ${state.customHeight} px`
     : `${preset.width} × ${preset.height} px`
 
   return (
-    <div className="flex h-screen overflow-hidden" style={{ background: 'var(--color-canvas-dark)' }}>
+    <div className="flex h-screen overflow-hidden" style={{ background: '#f0f0f0' }}>
       <ToastRenderer />
 
       {/* 좌측 컨트롤 패널 */}
       <aside
         className="w-72 shrink-0 flex flex-col overflow-hidden"
-        style={{ background: 'var(--color-surface-card)', borderRight: '1px solid var(--color-hairline)' }}
+        style={{
+          background: 'var(--color-canvas)',
+          borderRight: '1px solid var(--color-hairline)',
+          boxShadow: '2px 0 8px rgba(0,0,0,0.06)',
+        }}
       >
         {/* 헤더 */}
         <div className="px-4 py-3.5" style={{ borderBottom: '1px solid var(--color-hairline)' }}>
@@ -58,7 +60,7 @@ export default function App() {
                 style={{ background: 'var(--color-primary)' }}>
                 <span style={{ color: 'var(--color-ink)', fontSize: 10, fontWeight: 700, lineHeight: 1 }}>T</span>
               </div>
-              <h1 className="text-sm font-semibold" style={{ color: 'var(--color-on-dark)' }}>
+              <h1 className="text-sm font-semibold" style={{ color: 'var(--color-body)' }}>
                 TextStyle Studio
               </h1>
             </div>
@@ -66,19 +68,19 @@ export default function App() {
               onClick={reset}
               className="text-xs px-2.5 py-1 rounded transition-colors"
               style={{
-                color: 'var(--color-on-dark)',
-                border: '1px solid var(--color-surface-elevated)',
-                background: 'var(--color-surface-elevated)',
+                color: 'var(--color-muted-strong)',
+                border: '1px solid var(--color-hairline-strong)',
+                background: 'transparent',
               }}
               onMouseEnter={e => {
                 e.currentTarget.style.color = 'var(--color-trading-down)'
                 e.currentTarget.style.borderColor = 'var(--color-trading-down)'
-                e.currentTarget.style.background = 'rgba(246,70,93,0.1)'
+                e.currentTarget.style.background = 'rgba(246,70,93,0.05)'
               }}
               onMouseLeave={e => {
-                e.currentTarget.style.color = 'var(--color-on-dark)'
-                e.currentTarget.style.borderColor = 'var(--color-surface-elevated)'
-                e.currentTarget.style.background = 'var(--color-surface-elevated)'
+                e.currentTarget.style.color = 'var(--color-muted-strong)'
+                e.currentTarget.style.borderColor = 'var(--color-hairline-strong)'
+                e.currentTarget.style.background = 'transparent'
               }}
             >
               초기화
@@ -100,10 +102,13 @@ export default function App() {
       </aside>
 
       {/* 우측 미리보기 */}
-      <main className="flex-1 flex flex-col" style={{ background: 'var(--color-canvas-dark)' }}>
+      <main className="flex-1 flex flex-col" style={{ background: '#f0f0f0' }}>
         {/* 상단 바 */}
         <div className="flex items-center justify-between px-5 py-2.5"
-          style={{ borderBottom: '1px solid var(--color-hairline)' }}>
+          style={{
+            background: 'var(--color-canvas)',
+            borderBottom: '1px solid var(--color-hairline)',
+          }}>
           <span className="text-xs font-medium" style={{ color: 'var(--color-muted)' }}>미리보기</span>
           <span className="text-xs tabular-nums" style={{ color: 'var(--color-muted)' }}>
             {resLabel}

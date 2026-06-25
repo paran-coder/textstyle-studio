@@ -2,23 +2,26 @@
 @import "tailwindcss";
 
 /*
-  Binance 디자인 시스템 CSS 변수
-  BinanceNova / BinancePlex → Inter fallback 사용
+  Binance 디자인 시스템 — Light 테마
+  canvas-light: #ffffff / surface-soft: #fafafa / surface-strong: #f5f5f5
+  hairline: #eaecef / muted: #707a8a / body: #181a20
+  primary CTA: #fcd535 (yellow) — dark/light 동일
 */
 :root {
-  --color-primary:           #fcd535;
-  --color-primary-active:    #f0b90b;
-  --color-primary-disabled:  #3a3a1f;
-  --color-ink:               #181a20;
-  --color-on-dark:           #eaecef;
-  --color-muted:             #707a8a;
-  --color-muted-strong:      #929aa5;
-  --color-hairline:          #2b3139;
-  --color-canvas-dark:       #0b0e11;
-  --color-surface-card:      #1e2329;
-  --color-surface-elevated:  #2b3139;
-  --color-trading-up:        #0ecb81;
-  --color-trading-down:      #f6465d;
+  --color-primary:          #fcd535;
+  --color-primary-active:   #f0b90b;
+  --color-primary-disabled: #f5e27a;
+  --color-ink:              #181a20;
+  --color-body:             #181a20;
+  --color-muted:            #707a8a;
+  --color-muted-strong:     #474d57;
+  --color-hairline:         #eaecef;
+  --color-hairline-strong:  #cdd1d6;
+  --color-canvas:           #ffffff;
+  --color-surface-card:     #fafafa;
+  --color-surface-elevated: #f0f0f0;
+  --color-trading-up:       #0ecb81;
+  --color-trading-down:     #f6465d;
 }
 
 * { box-sizing: border-box; }
@@ -26,8 +29,8 @@
 body {
   margin: 0;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  background: var(--color-canvas-dark);
-  color: var(--color-on-dark);
+  background: var(--color-canvas);
+  color: var(--color-body);
   font-size: 14px;
 }
 
@@ -37,7 +40,7 @@ input[type="range"] {
   appearance: none;
   height: 2px;
   border-radius: 1px;
-  background: var(--color-surface-elevated);
+  background: var(--color-hairline);
   outline: none;
   width: 100%;
 }
@@ -47,18 +50,19 @@ input[type="range"]::-webkit-slider-thumb {
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background: var(--color-primary);
+  background: var(--color-primary-active);
   cursor: pointer;
-  border: 2px solid var(--color-canvas-dark);
+  border: 2px solid #ffffff;
+  box-shadow: 0 0 0 1px var(--color-hairline-strong);
 }
 
 /* 체크보드 (투명 배경 시각화) */
 .checkerboard {
-  background-image: repeating-conic-gradient(#2b3139 0% 25%, #1e2329 0% 50%);
+  background-image: repeating-conic-gradient(#d0d0d0 0% 25%, #f5f5f5 0% 50%);
   background-size: 16px 16px;
 }
 
 /* 스크롤바 */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--color-surface-elevated); border-radius: 2px; }
+::-webkit-scrollbar-thumb { background: var(--color-hairline-strong); border-radius: 2px; }

@@ -1,11 +1,10 @@
-// 내보내기 섹션 (Binance 스타일 — 노란 CTA 버튼)
+// 내보내기 섹션 (Light 테마 — Binance yellow CTA 버튼)
 import { Section, NumberInput } from './UIAtoms'
 import { PRESET_RESOLUTIONS } from '../../hooks/useStyleState'
 
 export function ExportSection({ state, update, onExport, exporting }) {
   return (
     <Section title="내보내기">
-      {/* 프리셋 */}
       <div className="grid grid-cols-2 gap-1.5 mb-3">
         {PRESET_RESOLUTIONS.map((p, i) => {
           const active = !state.useCustomSize && state.exportPreset === i
@@ -15,9 +14,9 @@ export function ExportSection({ state, update, onExport, exporting }) {
               onClick={() => { update('exportPreset', i); update('useCustomSize', false) }}
               className="px-2 py-2 text-xs rounded transition-colors text-left"
               style={{
-                background: active ? 'rgba(252,213,53,0.1)' : 'var(--color-surface-elevated)',
-                color: active ? 'var(--color-primary)' : 'var(--color-on-dark)',
-                border: `1px solid ${active ? 'var(--color-primary)' : 'var(--color-hairline)'}`,
+                background: active ? 'rgba(240,185,11,0.1)' : 'var(--color-canvas)',
+                color: active ? 'var(--color-primary-active)' : 'var(--color-muted-strong)',
+                border: `1px solid ${active ? 'var(--color-primary-active)' : 'var(--color-hairline-strong)'}`,
                 fontWeight: active ? 600 : 400,
               }}
             >
@@ -31,10 +30,10 @@ export function ExportSection({ state, update, onExport, exporting }) {
       <div className="mb-4">
         <label className="flex items-center gap-2 mb-2 cursor-pointer">
           <div
-            className="w-3.5 h-3.5 rounded-sm flex items-center justify-center transition-colors"
+            className="w-3.5 h-3.5 rounded-sm flex items-center justify-center transition-colors cursor-pointer"
             style={{
               background: state.useCustomSize ? 'var(--color-primary)' : 'transparent',
-              border: `1.5px solid ${state.useCustomSize ? 'var(--color-primary)' : 'var(--color-hairline)'}`,
+              border: `1.5px solid ${state.useCustomSize ? 'var(--color-primary-active)' : 'var(--color-hairline-strong)'}`,
             }}
             onClick={() => update('useCustomSize', !state.useCustomSize)}
           >
@@ -55,14 +54,14 @@ export function ExportSection({ state, update, onExport, exporting }) {
         )}
       </div>
 
-      {/* 저장 버튼 — Binance primary CTA */}
+      {/* PNG 저장 버튼 */}
       <button
         onClick={onExport}
         disabled={exporting}
         className="w-full py-2.5 rounded text-sm font-semibold transition-colors"
         style={{
           background: exporting ? 'var(--color-primary-disabled)' : 'var(--color-primary)',
-          color: exporting ? 'var(--color-muted)' : 'var(--color-ink)',
+          color: 'var(--color-ink)',
           cursor: exporting ? 'not-allowed' : 'pointer',
         }}
       >

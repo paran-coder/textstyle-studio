@@ -1,9 +1,4 @@
-// Binance 디자인 시스템 기반 컨트롤 패널 UI 원자 컴포넌트들
-// 색상 기준:
-//   라벨 텍스트  → --color-muted-strong (#929aa5) — muted(#707a8a)보다 밝아 가독성 확보
-//   섹션 타이틀  → --color-on-dark (#eaecef) 60% — 계층 구분
-//   값 표시      → --color-primary (#fcd535) — Binance yellow 강조
-//   비활성 버튼  → --color-muted-strong 텍스트 + hairline 테두리
+// Binance 디자인 시스템 Light 테마 기반 컨트롤 패널 UI 원자 컴포넌트들
 
 export function Section({ title, children }) {
   return (
@@ -11,7 +6,7 @@ export function Section({ title, children }) {
       style={{ borderColor: 'var(--color-hairline)' }}>
       {title && (
         <p className="text-xs font-semibold uppercase tracking-widest mb-3"
-          style={{ color: 'var(--color-muted-strong)', letterSpacing: '0.08em' }}>
+          style={{ color: 'var(--color-muted)', letterSpacing: '0.08em' }}>
           {title}
         </p>
       )}
@@ -25,8 +20,8 @@ export function SliderRow({ label, value, min, max, step = 1, unit = '', onChang
     <div className="mb-3">
       <div className="flex justify-between mb-1.5">
         <span className="text-xs" style={{ color: 'var(--color-muted-strong)' }}>{label}</span>
-        <span className="text-xs font-medium tabular-nums"
-          style={{ color: 'var(--color-primary)' }}>
+        <span className="text-xs font-semibold tabular-nums"
+          style={{ color: 'var(--color-primary-active)' }}>
           {value}{unit}
         </span>
       </div>
@@ -47,7 +42,7 @@ export function ColorRow({ label, value, onChange }) {
       </span>
       <div className="flex items-center gap-2 flex-1">
         <div className="relative w-7 h-7 rounded overflow-hidden shrink-0"
-          style={{ border: '1px solid var(--color-hairline)' }}>
+          style={{ border: '1px solid var(--color-hairline-strong)' }}>
           <input
             type="color"
             value={value.slice(0, 7)}
@@ -62,12 +57,12 @@ export function ColorRow({ label, value, onChange }) {
           onChange={e => onChange(e.target.value)}
           className="flex-1 px-2 py-1 text-xs font-mono rounded focus:outline-none"
           style={{
-            background: 'var(--color-surface-elevated)',
-            color: 'var(--color-on-dark)',
-            border: '1px solid var(--color-hairline)',
+            background: 'var(--color-canvas)',
+            color: 'var(--color-body)',
+            border: '1px solid var(--color-hairline-strong)',
           }}
-          onFocus={e => e.target.style.borderColor = 'var(--color-primary)'}
-          onBlur={e => e.target.style.borderColor = 'var(--color-hairline)'}
+          onFocus={e => e.target.style.borderColor = 'var(--color-primary-active)'}
+          onBlur={e => e.target.style.borderColor = 'var(--color-hairline-strong)'}
         />
       </div>
     </div>
@@ -83,15 +78,15 @@ export function Toggle({ label, checked, onChange }) {
         className="relative shrink-0 transition-colors"
         style={{
           width: 36, height: 20, borderRadius: 10,
-          background: checked ? 'var(--color-primary)' : 'var(--color-surface-elevated)',
-          border: `1px solid ${checked ? 'var(--color-primary)' : 'var(--color-hairline)'}`,
+          background: checked ? 'var(--color-primary-active)' : 'var(--color-hairline)',
+          border: `1px solid ${checked ? 'var(--color-primary-active)' : 'var(--color-hairline-strong)'}`,
         }}
       >
         <span
           className="absolute transition-transform"
           style={{
             top: 2, left: 2, width: 14, height: 14, borderRadius: '50%',
-            background: checked ? 'var(--color-ink)' : 'var(--color-muted-strong)',
+            background: checked ? '#ffffff' : 'var(--color-muted)',
             transform: checked ? 'translateX(16px)' : 'translateX(0)',
           }}
         />
@@ -107,12 +102,12 @@ export function NumberInput({ value, min = 1, max = 9999, onChange, className = 
       onChange={e => onChange(Number(e.target.value))}
       className={`px-3 py-1.5 text-sm rounded focus:outline-none ${className}`}
       style={{
-        background: 'var(--color-surface-elevated)',
-        color: 'var(--color-on-dark)',
-        border: '1px solid var(--color-hairline)',
+        background: 'var(--color-canvas)',
+        color: 'var(--color-body)',
+        border: '1px solid var(--color-hairline-strong)',
       }}
-      onFocus={e => e.target.style.borderColor = 'var(--color-primary)'}
-      onBlur={e => e.target.style.borderColor = 'var(--color-hairline)'}
+      onFocus={e => e.target.style.borderColor = 'var(--color-primary-active)'}
+      onBlur={e => e.target.style.borderColor = 'var(--color-hairline-strong)'}
     />
   )
 }
@@ -120,15 +115,16 @@ export function NumberInput({ value, min = 1, max = 9999, onChange, className = 
 export function TabGroup({ options, value, onChange }) {
   return (
     <div className="flex gap-0 rounded overflow-hidden mb-4"
-      style={{ border: '1px solid var(--color-hairline)' }}>
+      style={{ border: '1px solid var(--color-hairline-strong)' }}>
       {options.map(opt => (
         <button
           key={opt.value}
           onClick={() => onChange(opt.value)}
           className="flex-1 py-1.5 text-xs font-semibold transition-colors"
           style={{
-            background: value === opt.value ? 'var(--color-primary)' : 'transparent',
-            color: value === opt.value ? 'var(--color-ink)' : 'var(--color-on-dark)',
+            background: value === opt.value ? 'var(--color-primary)' : 'var(--color-canvas)',
+            color: value === opt.value ? 'var(--color-ink)' : 'var(--color-muted-strong)',
+            borderRight: '1px solid var(--color-hairline)',
           }}
         >
           {opt.label}
@@ -138,17 +134,16 @@ export function TabGroup({ options, value, onChange }) {
   )
 }
 
-// 범용 소형 버튼 (프리셋 등)
 export function ChipButton({ label, active, onClick }) {
   return (
     <button
       onClick={onClick}
       className="py-1.5 text-xs rounded transition-colors"
       style={{
-        background: active ? 'var(--color-primary)' : 'var(--color-surface-elevated)',
-        color: active ? 'var(--color-ink)' : 'var(--color-on-dark)',
+        background: active ? 'var(--color-primary)' : 'var(--color-canvas)',
+        color: active ? 'var(--color-ink)' : 'var(--color-muted-strong)',
         fontWeight: active ? 600 : 400,
-        border: `1px solid ${active ? 'var(--color-primary)' : 'var(--color-hairline)'}`,
+        border: `1px solid ${active ? 'var(--color-primary-active)' : 'var(--color-hairline-strong)'}`,
       }}
     >
       {label}
