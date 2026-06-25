@@ -128,10 +128,20 @@ export async function exportToPng(element, { width, height, transparent }, state
   const previewH = element.offsetHeight
   const scale = Math.min(width / previewW, height / previewH)
 
+  // 고해상도 렌더링: devicePixelRatio 적용으로 선명도 확보
+  const dpr = window.devicePixelRatio || 1
   const canvas = document.createElement('canvas')
-  canvas.width  = width
-  canvas.height = height
+  canvas.width  = width  * dpr
+  canvas.height = height * dpr
   const ctx = canvas.getContext('2d')
+
+  // 안티앨리어싱 및 렌더링 품질 설정
+  ctx.imageSmoothingEnabled = true
+  ctx.imageSmoothingQuality = 'high'
+  ctx.textRenderingOptimizeSpeed = false
+
+  // dpr만큼 전체 스케일 업
+  ctx.scale(dpr, dpr)
 
   // ── 배경 ────────────────────────────────────────────────
   if (!transparent) {
@@ -176,8 +186,17 @@ export async function exportToPng(element, { width, height, transparent }, state
 
   ctx.restore()
 
+  // dpr로 렌더링된 고해상도 canvas를 목표 해상도(width×height)로 다운스케일해서 저장
+  const outputCanvas = document.createElement('canvas')
+  outputCanvas.width  = width
+  outputCanvas.height = height
+  const outCtx = outputCanvas.getContext('2d')
+  outCtx.imageSmoothingEnabled = true
+  outCtx.imageSmoothingQuality = 'high'
+  outCtx.drawImage(canvas, 0, 0, width, height)
+
   return new Promise((resolve, reject) => {
-    canvas.toBlob(blob => {
+    outputCanvas.toBlob(blob => {
       if (!blob) { reject(new Error('PNG 변환에 실패했습니다.')); return }
       const url = URL.createObjectURL(blob)
       const a   = document.createElement('a')
