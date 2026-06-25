@@ -66,17 +66,19 @@ export default function App() {
               onClick={reset}
               className="text-xs px-2.5 py-1 rounded transition-colors"
               style={{
-                color: 'var(--color-muted)',
-                border: '1px solid var(--color-hairline)',
-                background: 'transparent',
+                color: 'var(--color-on-dark)',
+                border: '1px solid var(--color-surface-elevated)',
+                background: 'var(--color-surface-elevated)',
               }}
               onMouseEnter={e => {
                 e.currentTarget.style.color = 'var(--color-trading-down)'
                 e.currentTarget.style.borderColor = 'var(--color-trading-down)'
+                e.currentTarget.style.background = 'rgba(246,70,93,0.1)'
               }}
               onMouseLeave={e => {
-                e.currentTarget.style.color = 'var(--color-muted)'
-                e.currentTarget.style.borderColor = 'var(--color-hairline)'
+                e.currentTarget.style.color = 'var(--color-on-dark)'
+                e.currentTarget.style.borderColor = 'var(--color-surface-elevated)'
+                e.currentTarget.style.background = 'var(--color-surface-elevated)'
               }}
             >
               초기화
