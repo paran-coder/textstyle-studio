@@ -104,6 +104,9 @@ export function FontSection({ state, update, addUploadedFont, showToast }) {
             </button>
           ))}
         </div>
+        <p className="mt-1.5 text-xs" style={{ color: 'var(--color-muted)', fontSize: 10 }}>
+          굵기는 폰트가 해당 굵기를 지원할 때만 적용됩니다.
+        </p>
       </div>
 
       <SliderRow label="크기" value={state.fontSize} min={8} max={300} unit="px"
