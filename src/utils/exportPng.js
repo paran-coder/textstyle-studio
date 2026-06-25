@@ -42,8 +42,8 @@ function drawText(ctx, lines, startY, lineH, state, scale) {
   // ── 3D 입체 (뒤 레이어부터) ──────────────────────────────
   if (state.threeDEnabled) {
     const rad = (state.threeDAngle * Math.PI) / 180
-    const dx = -Math.cos(rad)
-    const dy = -Math.sin(rad)
+    const dx = Math.cos(rad)   // 그림자 방향
+    const dy = Math.sin(rad)
     const c  = parseColor(state.threeDColor)
     const depth = state.threeDDepth * scale
 
@@ -63,10 +63,10 @@ function drawText(ctx, lines, startY, lineH, state, scale) {
       lines.forEach((line, li) => ctx.fillText(line, dx * i, startY + dy * i + li * lineH))
     }
 
-    // 하이라이트
+    // 하이라이트: 빛이 오는 방향(그림자 반대)
     if (state.threeDHighlight) {
       ctx.fillStyle = 'rgba(255,255,255,0.4)'
-      lines.forEach((line, li) => ctx.fillText(line, Math.cos(rad)*1.5*scale, startY + Math.sin(rad)*1.5*scale + li * lineH))
+      lines.forEach((line, li) => ctx.fillText(line, -dx*1.5*scale, startY + (-dy)*1.5*scale + li * lineH))
     }
   }
 

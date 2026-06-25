@@ -62,25 +62,25 @@ export function StyleSection({ state, update }) {
           <>
             <SliderRow label="두께" value={state.threeDDepth} min={1} max={40} unit="px"
               onChange={v => update('threeDDepth', v)} />
-            <SliderRow label="빛 방향" value={state.threeDAngle} min={0} max={359} unit="°"
+            <SliderRow label="그림자 방향" value={state.threeDAngle} min={0} max={359} unit="°"
               onChange={v => update('threeDAngle', v)} />
             <ColorRow label="측면 색" value={state.threeDColor}
               onChange={v => update('threeDColor', v)} />
             <Toggle label="하이라이트" checked={state.threeDHighlight}
               onChange={v => update('threeDHighlight', v)} />
-            {/* 빛 방향 프리셋 */}
+            {/* 그림자 방향 프리셋 */}
             <div className="mt-2">
               <p className="text-xs mb-2" style={{ color: 'var(--color-muted-strong)' }}>
-                빛 방향 프리셋
+                그림자 방향 프리셋
               </p>
               <div className="grid grid-cols-3 gap-1">
                 {[
-                  { label: '↖ 왼쪽위',   angle: 315 },
-                  { label: '↑ 위',        angle: 270 },
-                  { label: '↗ 오른쪽위', angle: 225 },
-                  { label: '↙ 왼쪽아래', angle: 135 },
-                  { label: '↓ 아래',      angle: 90  },
-                  { label: '↘ 오른쪽아래', angle: 45 },
+                  { label: '↖ 왼쪽위',     angle: 225 },
+                  { label: '↑ 위',          angle: 270 },
+                  { label: '↗ 오른쪽위',   angle: 315 },
+                  { label: '↙ 왼쪽아래',   angle: 135 },
+                  { label: '↓ 아래',        angle: 90  },
+                  { label: '↘ 오른쪽아래', angle: 45  },
                 ].map(p => (
                   <ChipButton
                     key={p.angle}
