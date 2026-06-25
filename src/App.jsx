@@ -27,7 +27,7 @@ export default function App() {
         width: size.width,
         height: size.height,
         transparent: state.bgType === 'transparent',
-      })
+      }, state)
       showToast('PNG가 저장되었습니다.', 'success')
     } catch {
       showToast('저장에 실패했습니다. 다시 시도해 주세요.')
