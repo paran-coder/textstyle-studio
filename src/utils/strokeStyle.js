@@ -1,52 +1,50 @@
 // 텍스트 외곽선 위치(outside/center/inside)별 CSS 스타일을 계산하는 유틸리티
 
 /**
- * outside: text-shadow를 8방향으로 퍼뜨려 바깥쪽 외곽선 시뮬레이션
- * center:  -webkit-text-stroke 그대로 사용 (기본 동작)
- * inside:  stroke를 두껍게 친 뒤 clip으로 텍스트 내부만 남김
- *          → paint-order: stroke fill 로 fill이 stroke 위에 덮여 안쪽만 보이는 효과
+ * outside: text-shadow를 360° 16방향으로 촘촘히 채워 균일한 바깥 외곽선
+ * center:  -webkit-text-stroke (stroke가 안팎으로 반반 퍼짐)
+ * inside:  center와 동일하게 stroke를 치되, fill 색상으로 바깥 절반을 덮는
+ *          추가 레이어를 호출부(PreviewCanvas)에서 처리
+ *
+ * paint-order는 SVG 전용이라 HTML div에서는 동작하지 않으므로 사용하지 않음.
+ * inside는 _insideStroke 플래그로 호출부에 알리고, 래퍼 div에 별도 처리.
  */
 export function getStrokeStyle(strokeWidth, strokeColor, strokePosition) {
   if (strokeWidth === 0) {
-    return {
-      WebkitTextStroke: '0px transparent',
-      textShadow: undefined, // 기존 shadow와 병합은 호출부에서 처리
-      paintOrder: undefined,
-    }
+    return { WebkitTextStroke: '0px transparent' }
   }
 
   if (strokePosition === 'center') {
     return {
       WebkitTextStroke: `${strokeWidth}px ${strokeColor}`,
-      paintOrder: 'stroke fill',
     }
   }
 
   if (strokePosition === 'outside') {
-    // text-shadow 8방향 + 대각 보완으로 균일한 외곽선 구현
+    // 360° / 16스텝으로 균일하게 퍼뜨려 부드러운 외곽선 구현
     const w = strokeWidth
     const c = strokeColor
-    const shadows = [
-      `${w}px 0 0 ${c}`,
-      `-${w}px 0 0 ${c}`,
-      `0 ${w}px 0 ${c}`,
-      `0 -${w}px 0 ${c}`,
-      `${w}px ${w}px 0 ${c}`,
-      `-${w}px ${w}px 0 ${c}`,
-      `${w}px -${w}px 0 ${c}`,
-      `-${w}px -${w}px 0 ${c}`,
-    ]
+    const steps = 16
+    const shadows = Array.from({ length: steps }, (_, i) => {
+      const angle = (i / steps) * 2 * Math.PI
+      const x = (Math.cos(angle) * w).toFixed(2)
+      const y = (Math.sin(angle) * w).toFixed(2)
+      return `${x}px ${y}px 0 ${c}`
+    })
     return {
       WebkitTextStroke: '0px transparent',
-      _strokeShadows: shadows, // 호출부에서 기존 shadow와 합산
+      _strokeShadows: shadows,
     }
   }
 
   if (strokePosition === 'inside') {
-    // stroke를 2배 두껍게 → fill이 stroke 위에 덮여 안쪽 절반만 보임
+    // stroke를 2배 두께로 치고 → 텍스트 fill 색상과 동일한 색으로
+    // 바깥 절반을 덮는 WebkitTextStroke를 textColor로 덮어씌우는 방식.
+    // _insideStroke 플래그를 호출부에 전달해 별도 처리.
     return {
       WebkitTextStroke: `${strokeWidth * 2}px ${strokeColor}`,
-      paintOrder: 'stroke fill',
+      _insideStroke: true,
+      _insideWidth: strokeWidth,
     }
   }
 

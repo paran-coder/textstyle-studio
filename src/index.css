@@ -1,36 +1,64 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
-* {
-  box-sizing: border-box;
+/*
+  Binance 디자인 시스템 CSS 변수
+  BinanceNova / BinancePlex → Inter fallback 사용
+*/
+:root {
+  --color-primary:           #fcd535;
+  --color-primary-active:    #f0b90b;
+  --color-primary-disabled:  #3a3a1f;
+  --color-ink:               #181a20;
+  --color-on-dark:           #eaecef;
+  --color-muted:             #707a8a;
+  --color-muted-strong:      #929aa5;
+  --color-hairline:          #2b3139;
+  --color-canvas-dark:       #0b0e11;
+  --color-surface-card:      #1e2329;
+  --color-surface-elevated:  #2b3139;
+  --color-trading-up:        #0ecb81;
+  --color-trading-down:      #f6465d;
 }
+
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
-  font-family: 'Noto Sans KR', sans-serif;
-  background: #0f0f1a;
-  color: #e2e2e8;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--color-canvas-dark);
+  color: var(--color-on-dark);
+  font-size: 14px;
 }
 
-.checkerboard {
-  background-image: repeating-conic-gradient(#888 0% 25%, #ccc 0% 50%);
-  background-size: 20px 20px;
-}
-
+/* 슬라이더 — Binance yellow thumb */
 input[type="range"] {
   -webkit-appearance: none;
   appearance: none;
-  height: 4px;
-  border-radius: 2px;
-  background: #2d2d4a;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--color-surface-elevated);
   outline: none;
+  width: 100%;
 }
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
-  background: #6366f1;
+  background: var(--color-primary);
   cursor: pointer;
+  border: 2px solid var(--color-canvas-dark);
 }
+
+/* 체크보드 (투명 배경 시각화) */
+.checkerboard {
+  background-image: repeating-conic-gradient(#2b3139 0% 25%, #1e2329 0% 50%);
+  background-size: 16px 16px;
+}
+
+/* 스크롤바 */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--color-surface-elevated); border-radius: 2px; }

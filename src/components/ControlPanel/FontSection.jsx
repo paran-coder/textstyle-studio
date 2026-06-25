@@ -1,10 +1,10 @@
-// 폰트 선택(내장 + 업로드) 및 텍스트 기본 스타일 섹션
+// 폰트 선택 및 업로드 섹션 (Binance 스타일)
 import { useRef, useState } from 'react'
 import { Section, SliderRow, ColorRow } from './UIAtoms'
 import { BUILTIN_FONTS } from '../../hooks/useStyleState'
 import { loadFontFromFile } from '../../utils/fontLoader'
 
-const FONT_WEIGHTS = [100, 200, 300, 400, 500, 600, 700, 800, 900]
+const FONT_WEIGHTS = [300, 400, 500, 600, 700, 800, 900]
 
 export function FontSection({ state, update, addUploadedFont, showToast }) {
   const fileInputRef = useRef(null)
@@ -12,14 +12,14 @@ export function FontSection({ state, update, addUploadedFont, showToast }) {
 
   const allFonts = [
     ...BUILTIN_FONTS,
-    ...state.uploadedFonts.map(f => ({ label: `${f} (업로드)`, value: f })),
+    ...state.uploadedFonts.map(f => ({ label: `${f} ↑`, value: f })),
   ]
 
   const handleFile = async (file) => {
     try {
       const name = await loadFontFromFile(file)
       addUploadedFont(name)
-      showToast(`"${name}" 폰트가 추가되었습니다.`, 'success')
+      showToast(`"${name}" 추가됨`, 'success')
     } catch (e) {
       showToast(e.message)
     }
@@ -39,13 +39,15 @@ export function FontSection({ state, update, addUploadedFont, showToast }) {
         <select
           value={state.fontFamily}
           onChange={e => update('fontFamily', e.target.value)}
-          className="w-full bg-white/10 rounded-xl px-3 py-2 text-sm text-white border border-white/10 focus:outline-none focus:border-indigo-500 cursor-pointer"
-          style={{ fontFamily: state.fontFamily }}
+          className="w-full px-3 py-2 text-sm rounded focus:outline-none cursor-pointer"
+          style={{
+            background: 'var(--color-surface-elevated)',
+            color: 'var(--color-on-dark)',
+            border: '1px solid var(--color-hairline)',
+          }}
         >
           {allFonts.map(f => (
-            <option key={f.value} value={f.value} style={{ fontFamily: f.value }}>
-              {f.label}
-            </option>
+            <option key={f.value} value={f.value}>{f.label}</option>
           ))}
         </select>
       </div>
@@ -56,11 +58,14 @@ export function FontSection({ state, update, addUploadedFont, showToast }) {
         onDragLeave={() => setDragging(false)}
         onDrop={handleDrop}
         onClick={() => fileInputRef.current?.click()}
-        className={`border-2 border-dashed rounded-xl px-4 py-3 text-center text-xs cursor-pointer transition-colors mb-4 ${
-          dragging ? 'border-indigo-400 bg-indigo-500/10' : 'border-white/20 hover:border-indigo-400/60'
-        }`}
+        className="rounded px-3 py-2.5 text-center text-xs cursor-pointer transition-colors mb-4"
+        style={{
+          border: `1px dashed ${dragging ? 'var(--color-primary)' : 'var(--color-hairline)'}`,
+          background: dragging ? 'rgba(252,213,53,0.05)' : 'transparent',
+          color: 'var(--color-muted)',
+        }}
       >
-        <span className="text-white/40">폰트 파일 드래그 또는 클릭 (TTF·OTF·WOFF)</span>
+        폰트 파일 드래그 또는 클릭 (TTF · OTF · WOFF)
         <input
           ref={fileInputRef}
           type="file"
@@ -72,18 +77,24 @@ export function FontSection({ state, update, addUploadedFont, showToast }) {
 
       {/* 굵기 */}
       <div className="mb-3">
-        <p className="text-xs text-white/50 mb-2">굵기</p>
-        <div className="flex flex-wrap gap-1">
+        <div className="flex justify-between mb-1.5">
+          <span className="text-xs" style={{ color: 'var(--color-muted)' }}>굵기</span>
+          <span className="text-xs font-medium" style={{ color: 'var(--color-primary)' }}>
+            {state.fontWeight}
+          </span>
+        </div>
+        <div className="flex gap-1">
           {FONT_WEIGHTS.map(w => (
             <button
               key={w}
               onClick={() => update('fontWeight', w)}
-              className={`px-2 py-1 text-xs rounded-lg transition-colors ${
-                state.fontWeight === w
-                  ? 'bg-indigo-500 text-white'
-                  : 'bg-white/10 text-white/60 hover:bg-white/20'
-              }`}
-              style={{ fontWeight: w }}
+              className="flex-1 py-1 text-xs rounded transition-colors"
+              style={{
+                background: state.fontWeight === w ? 'var(--color-primary)' : 'var(--color-surface-elevated)',
+                color: state.fontWeight === w ? 'var(--color-ink)' : 'var(--color-muted)',
+                fontWeight: w,
+                border: `1px solid ${state.fontWeight === w ? 'var(--color-primary)' : 'var(--color-hairline)'}`,
+              }}
             >
               {w}
             </button>
@@ -91,20 +102,9 @@ export function FontSection({ state, update, addUploadedFont, showToast }) {
         </div>
       </div>
 
-      <SliderRow
-        label="크기"
-        value={state.fontSize}
-        min={8}
-        max={300}
-        unit="px"
-        onChange={v => update('fontSize', v)}
-      />
-
-      <ColorRow
-        label="색상"
-        value={state.textColor}
-        onChange={v => update('textColor', v)}
-      />
+      <SliderRow label="크기" value={state.fontSize} min={8} max={300} unit="px"
+        onChange={v => update('fontSize', v)} />
+      <ColorRow label="색상" value={state.textColor} onChange={v => update('textColor', v)} />
     </Section>
   )
 }

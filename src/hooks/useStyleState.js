@@ -36,10 +36,17 @@ const DEFAULT_STATE = {
 
   // 롱 섀도우
   longShadowEnabled: false,
-  longShadowLength: 80,   // 그림자 길이 (px 단위 스텝 수)
-  longShadowAngle: 135,   // 방향 각도 (deg, 0=오른쪽, 90=아래)
+  longShadowLength: 80,
+  longShadowAngle: 135,
   longShadowColor: '#00000066',
-  longShadowFade: true,   // 끝으로 갈수록 투명해지는 효과
+  longShadowFade: true,
+
+  // 3D 입체 효과
+  threeDEnabled: false,
+  threeDDepth: 12,        // 두께 (px)
+  threeDAngle: 135,       // 빛 방향 (deg) — 반대 방향이 두께로 표현됨
+  threeDColor: '#1a1a6e', // 측면 어두운 색
+  threeDHighlight: true,  // 상단 하이라이트 레이어
 
   // 텍스트 외곽선 (stroke)
   strokeWidth: 0,
